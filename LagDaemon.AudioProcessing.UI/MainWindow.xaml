@@ -1,0 +1,55 @@
+﻿<Window x:Class="LagDaemon.AudioProcessing.UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LagDaemon.AudioProcessing.UI"
+        xmlns:v="clr-namespace:LagDaemon.AudioProcessing.UI.Views"
+        xmlns:vm="clr-namespace:LagDaemon.AudioProcessing.UI.ViewModels"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+  <Window.Resources>
+    <!-- Define DataTemplates for ViewModels -->
+    <DataTemplate DataType="{x:Type vm:NewProjectViewModel}">
+      <v:NewProjectView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:DevicesViewModel}">
+        <v:DevicesView />
+    </DataTemplate>
+    </Window.Resources>
+  <Grid>
+        <!-- Define rows -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Menu row -->
+            <RowDefinition Height="*"/>
+            <!-- Content row -->
+        </Grid.RowDefinitions>
+
+        <!-- Menu -->
+        <Menu Grid.Row="0">
+            <!-- Define your menu items here -->
+            <MenuItem Header="_File">
+                <MenuItem Header="_New" Command="{Binding NewCommand}" IsEnabled="{Binding IsNewEnabled}" />
+                <MenuItem Header="_Open" Command="{Binding OpenCommand}" IsEnabled="{Binding IsOpenEnabled}" />
+                <MenuItem Header="_Save" Command="{Binding SaveCommand}" IsEnabled="{Binding IsSaveEnabled}" />
+            </MenuItem>
+            <MenuItem Header="_Edit">
+                <MenuItem Header="_Copy" />
+                <MenuItem Header="_Cut" />
+                <MenuItem Header="_Paste" />
+            </MenuItem>
+
+            <MenuItem Header="_View">
+                <MenuItem Header="New Project" />
+                <MenuItem Header="View Devices" />
+                <MenuItem Header="Manage ..." />
+            </MenuItem>
+
+        </Menu>
+
+
+        <!-- ContentControl to display current view -->
+    <ContentControl Grid.Row="1" Content="{Binding CurrentViewModel}" />
+  </Grid>
+</Window>

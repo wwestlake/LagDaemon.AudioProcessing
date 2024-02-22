@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Castle.Windsor" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LagDaemon.AudioProcessing.Api\LagDaemon.AudioProcessing.Api.csproj" />
+    <ProjectReference Include="..\LagDaemon.AudioProcessing.AudioTests\LagDaemon.AudioProcessing.AudioTests.csproj" />
+    <ProjectReference Include="..\LagDaemon.AudioProcessing.Audio\LagDaemon.AudioProcessing.Audio.csproj" />
+    <ProjectReference Include="..\LagDaemon.AudioProcessing.Math\LagDaemon.AudioProcessing.Math.csproj" />
+  </ItemGroup>
+
+</Project>
