@@ -15,9 +15,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LagDaemon.AudioProcessing.U
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LagDaemon.AudioProcessing.Api", "LagDaemon.AudioProcessing.Api\LagDaemon.AudioProcessing.Api.csproj", "{384591B3-0A0B-4A62-9865-A4A623B64764}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LagDaemon.AudioProcessing.Api.Tests", "LagDaemon.AudioProcessing.Api.Tests\LagDaemon.AudioProcessing.Api.Tests.csproj", "{4A43163C-E12F-46FC-906E-74E2A3ED98EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LagDaemon.AudioProcessing.Api.Tests", "LagDaemon.AudioProcessing.Api.Tests\LagDaemon.AudioProcessing.Api.Tests.csproj", "{4A43163C-E12F-46FC-906E-74E2A3ED98EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LagDaemon.AudioProcessing.TestConsole", "LagDaemon.AudioProcessing.TestConsole\LagDaemon.AudioProcessing.TestConsole.csproj", "{726D2389-C73B-4A9F-9AAF-AA8C4ADE0BBB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LagDaemon.AudioProcessing.TestConsole", "LagDaemon.AudioProcessing.TestConsole\LagDaemon.AudioProcessing.TestConsole.csproj", "{726D2389-C73B-4A9F-9AAF-AA8C4ADE0BBB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LagDaemon.Peridot", "LagDaemon.Peridot\LagDaemon.Peridot.csproj", "{0586402B-C38A-4EDE-BC5B-5EF7488FA494}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LagDaremon.Peridot.Tests", "LagDaremon.Peridot.Tests\LagDaremon.Peridot.Tests.csproj", "{59318A56-F2CE-4AE6-AE97-DA5F88E0DC29}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +61,14 @@ Global
 		{726D2389-C73B-4A9F-9AAF-AA8C4ADE0BBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{726D2389-C73B-4A9F-9AAF-AA8C4ADE0BBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{726D2389-C73B-4A9F-9AAF-AA8C4ADE0BBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0586402B-C38A-4EDE-BC5B-5EF7488FA494}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0586402B-C38A-4EDE-BC5B-5EF7488FA494}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0586402B-C38A-4EDE-BC5B-5EF7488FA494}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0586402B-C38A-4EDE-BC5B-5EF7488FA494}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59318A56-F2CE-4AE6-AE97-DA5F88E0DC29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59318A56-F2CE-4AE6-AE97-DA5F88E0DC29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59318A56-F2CE-4AE6-AE97-DA5F88E0DC29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59318A56-F2CE-4AE6-AE97-DA5F88E0DC29}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
