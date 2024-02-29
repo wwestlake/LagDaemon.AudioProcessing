@@ -18,7 +18,7 @@ namespace LagDaemon.AudioProcessing.Api.Tests
         public void TestSerialization() 
         {
             // Arrange
-            var expectedJson = "{\"Name\":\"Test\",\"Description\":\"Description\",\"Version\":\"1.0.0\",\"Author\":\"Smith\",\"Copyright\":\"Some Copyright\",\"Files\":[],\"SubProjects\":[{\"Name\":\"Test 2\",\"Description\":\"Description\",\"Version\":\"1.0.0\",\"Author\":\"Smith\",\"Copyright\":\"Some Copyright\",\"Files\":[],\"SubProjects\":[],\"ProjectSettings\":{}}],\"ProjectSettings\":{\"name\":\"Test\"}}";
+            var expectedJson = "{\"Name\":\"Test\",\"Description\":\"Description\",\"Version\":\"1.0.0\",\"Author\":\"Smith\",\"Copyright\":\"Some Copyright\",\"Path\":null,\"Files\":[],\"SubProjects\":[{\"Name\":\"Test 2\",\"Description\":\"Description\",\"Version\":\"1.0.0\",\"Author\":\"Smith\",\"Copyright\":\"Some Copyright\",\"Path\":null,\"Files\":[],\"SubProjects\":[],\"ProjectSettings\":{}}],\"ProjectSettings\":{\"name\":\"Test\"}}";
 
 
             _container.Register(Component.For<ISerializer, JsonSerializerImpl>());  
