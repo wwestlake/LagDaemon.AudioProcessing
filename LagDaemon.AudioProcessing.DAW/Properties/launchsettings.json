@@ -1,0 +1,10 @@
+﻿{
+    "profiles": {
+      "LagDaemon.AudioProcessing.DAW (Package)": {
+        "commandName": "MsixPackage"
+      },
+      "LagDaemon.AudioProcessing.DAW (Unpackaged)": {
+        "commandName": "Project"
+      }
+    }
+}
