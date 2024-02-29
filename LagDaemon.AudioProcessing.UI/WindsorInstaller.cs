@@ -13,6 +13,7 @@ namespace LagDaemon.AudioProcessing.UI
             container.Register(Component.For<MainWindow>());
             container.Register(Component.For<NewProjectViewModel>());
             container.Register(Component.For<DevicesViewModel>());
+            container.Register(Component.For<StartPageViewModel>());
         }
     }
 }

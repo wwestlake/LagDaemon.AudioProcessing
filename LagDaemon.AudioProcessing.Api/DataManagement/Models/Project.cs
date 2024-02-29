@@ -16,6 +16,7 @@ namespace LagDaemon.AudioProcessing.Api.DataManagement.Models
 
         public string Copyright { get; set; }
 
+        public string Path { get; set; }
         public IList<FileDescription> Files { get; set; } = new List<FileDescription>();
         public IList<Project> SubProjects { get; set; } = new List<Project>();
 

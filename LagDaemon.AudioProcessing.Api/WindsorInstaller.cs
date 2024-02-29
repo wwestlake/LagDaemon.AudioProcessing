@@ -13,14 +13,16 @@ using System.Threading.Tasks;
 
 namespace LagDaemon.AudioProcessing.Api
 {
-    public class WindsorInsataller : IWindsorInstaller
+    public class WindsorInstaller : IWindsorInstaller
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
+            container.Register(Component.For<IErrorHandlingService>().ImplementedBy<ErrorHandlingService>());
             container.Register(Component.For<IMetadataService>().ImplementedBy<MetadataService>());
             container.Register(Component.For<ISerializer, JsonSerializerImpl>());
             container.Register(Component.For<ISerializationService, SerializationService>());
             container.Register(Component.For<ISystemConfigurationService, SystemConfigurationService>());
+            container.Register(Component.For<IProjectManagementService, ProjectManagementService>());
         }
     }
 }
