@@ -39,7 +39,7 @@ namespace LagDaemon.AudioProcessing.UI.ViewModels
             set { _isSaveEnabled = value; OnPropertyChanged(); }
         }
 
-        public MainViewModel(DevicesViewModel vm) 
+        public MainViewModel(StartPageViewModel vm) 
         {
             CurrentViewModel = vm;
             NewCommand = new RelayCommand(NewExecute);

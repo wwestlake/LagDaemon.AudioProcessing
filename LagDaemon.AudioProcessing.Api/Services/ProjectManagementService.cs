@@ -9,15 +9,42 @@ using System.Threading.Tasks;
 
 namespace LagDaemon.AudioProcessing.Api.Services
 {
-    public class ProjectManagementService
+    public class ProjectManagementService : IProjectManagementService
     {
         private readonly ISerializationService _serializer;
         private readonly IErrorHandlingService _errorHandler;
+        private readonly ISystemConfigurationService _systemConfigService;
 
-        public ProjectManagementService(ISerializationService serializer, IErrorHandlingService errorHandler)
+        public ProjectManagementService(ISerializationService serializer, IErrorHandlingService errorHandler, ISystemConfigurationService systemConfigService)
         {
             _serializer = serializer;
             _errorHandler = errorHandler;
+            _systemConfigService = systemConfigService;
+        }
+
+        public IEnumerable<Project> GetRecentProjects()
+        {
+#if VISUAL_STUDIO
+            // Code to execute when running in Visual Studio
+            return new List<Project>() 
+            { 
+                new Project() 
+                { 
+                     Name = "Test Project",
+                     Author = "Bill Westlake",
+                     Copyright = "2024 all rights reserved",
+                     Description = "A test file",
+                     Path = "d:\\projects\\someproject"
+                } 
+            };
+#else
+            // Code to execute when running standalone
+#pragma warning disable CS8603 // Possible null reference return.
+            return _systemConfigService.RecentProjects;
+#pragma warning restore CS8603 // Possible null reference return.
+#endif
+
+
         }
 
         public Project? OpenProject(string path)
@@ -33,7 +60,8 @@ namespace LagDaemon.AudioProcessing.Api.Services
                 var project = _serializer.Deserialize<Project>(content);
                 return project;
 
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 _errorHandler.HandleException(ex);
             }

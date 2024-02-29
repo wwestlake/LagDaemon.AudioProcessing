@@ -9,9 +9,38 @@
     <Grid>
         <!-- Left panel for recent projects -->
         <Border Grid.Column="0" Background="LightGray" Width="Auto" HorizontalAlignment="Left">
-            <ListBox ItemsSource="{Binding RecentProjects}" DisplayMemberPath="Name"/>
-        </Border>
+            <ListBox ItemsSource="{Binding RecentProjects}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="5">
+                            <!-- Icon -->
+                            <Image Source="{Binding Icon}" Width="20" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left"/>
 
+                            <!-- Name (Link Button) -->
+                            <TextBlock Text="{Binding Name}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="25,0,0,0">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Foreground" Value="Blue"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="TextDecorations" Value="Underline"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                                <TextBlock.InputBindings>
+                                    <MouseBinding Gesture="LeftClick" Command="{Binding OpenCommand}"/>
+                                </TextBlock.InputBindings>
+                            </TextBlock>
+
+                            <!-- Path -->
+                            <TextBlock Text="{Binding Path}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="25,0,0,0"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Border>
+        
         <!-- Right panel for project details -->
         <Border Grid.Column="1" Background="LightGray" Width="Auto" HorizontalAlignment="Right">
             <Grid>

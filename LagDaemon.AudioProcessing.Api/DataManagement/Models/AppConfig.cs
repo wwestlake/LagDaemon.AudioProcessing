@@ -10,8 +10,8 @@ namespace LagDaemon.AudioProcessing.Api.DataManagement.Models
 {
     public class AppConfig
     {
-        public IList<Project> RecentProjects { get; set; } = new List<Project>();
-        public IList<FileDescription> RecentFiles { get; set; } = new List<FileDescription>();
+        public IList<Project> RecentProjects { get; private set; } = new List<Project>();
+        public IList<FileDescription> RecentFiles { get; private set; } = new List<FileDescription>();
 
         public IDictionary<string, object> UserPreferences { get; set; } = new Dictionary<string, object>();
 
