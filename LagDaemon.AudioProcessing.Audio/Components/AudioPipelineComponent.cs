@@ -36,6 +36,8 @@ public abstract class AudioPipelineComponent : IAudioPipelineComponent
         Sink.PlaybackStopped += OnPlaybackStopped;
     }
 
+    protected WaveFileReader WaveFileReader { get; }  
+
     protected void OnDataAvailable(object sender, WaveInEventArgs e)
     {
         var processedData = ProcessAudio(e.Buffer);

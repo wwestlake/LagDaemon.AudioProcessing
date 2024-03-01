@@ -6,6 +6,8 @@ using LagDaemon.AudioProcessing.Api.DataManagement.Models;
 using LagDaemon.AudioProcessing.Api.DataManagement.Services;
 using LagDaemon.AudioProcessing.Api.Interfaces;
 using LagDaemon.AudioProcessing.Api.Services;
+using LagDaemon.AudioProcessing.Audio.Components;
+using NAudio.Wave;
 
 namespace LagDaemon.AudioProcessing.TestConsole
 {
@@ -13,19 +15,53 @@ namespace LagDaemon.AudioProcessing.TestConsole
     {
         static void Main(string[] args)
         {
-            var container = new WindsorContainer();
-            container.Register(Component.For<ISerializer, JsonSerializerImpl>());
-            container.Register(Component.For<ISerializationService, SerializationService>());
-            container.Register(Component.For<ISystemConfigurationService,  SystemConfigurationService>());  
-            var config = container.Resolve<ISystemConfigurationService>();
+            string audioFilePath = "D:\\Music\\AI_Test_Kitchen_a_rising_synth_is_playing_an_arpeggio_with_a (1).mp3";
 
-            Console.WriteLine($"{config.GetSetting<int>("test")}");
+            var waveFileReader = new WaveFileReader(audioFilePath);
 
-            //config.SetSetting("something", "somevalue");
+            // Create an instance of WaveOutEvent for audio playback
+            var waveOut = new WaveOutEvent();
 
-            Console.WriteLine($"{config.GetSetting<string>("something")}");
+            // Create an instance of your AudioPipelineComponent with WaveFileReader and WaveOutEvent
+            var audioPipelineComponent = new YourAudioPipelineComponent(waveFileReader, waveOut);
 
-            config.Save();
+            // Start audio playback
+            waveOut.Init(waveFileReader);
+            waveOut.Play();
+
+            // Keep the console application running while audio is playing
+            Console.WriteLine("Playing audio. Press any key to stop...");
+            Console.ReadKey();
+
+            // Stop audio playback
+            waveOut.Stop();
+            waveOut.Dispose();
+            waveFileReader.Dispose();
         }
     }
+
+
+    // Your AudioPipelineComponent class (replace with your actual implementation)
+    public class YourAudioPipelineComponent : AudioPipelineComponent
+    {
+        public YourAudioPipelineComponent(WaveInEvent source, WaveOutEvent sink)
+            : base(source, sink)
+        {
+        }
+
+        // Implement the abstract method for processing audio data
+        public override byte[] ProcessAudio(byte[] inputData)
+        {
+            // Process audio data as needed
+            // For this example, we'll just return the input data unchanged
+            return inputData;
+        }
+
+        // Implement the abstract method for handling playback stopped event
+        protected override void OnPlaybackStopped(object sender, StoppedEventArgs e)
+        {
+            // Handle playback stopped event as needed
+        }
+    }
+
 }
