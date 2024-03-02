@@ -13,4 +13,4 @@ public class AudioDataAvailableEventArgs : EventArgs
         Buffer = buffer;
     }
 }
-}
+

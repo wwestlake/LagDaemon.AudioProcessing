@@ -13,6 +13,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LagDaemon.AudioProcessing.Api\LagDaemon.AudioProcessing.Api.csproj" />
+    <ProjectReference Include="..\LagDaemon.AudioProcessing.Audio\LagDaemon.AudioProcessing.Audio.csproj" />
+    <ProjectReference Include="..\LagDaemon.AudioProcessing.Math\LagDaemon.AudioProcessing.Math.csproj" />
+    <ProjectReference Include="..\LagDaemon.Peridot\LagDaemon.Peridot.csproj" />
   </ItemGroup>
 
 </Project>

@@ -8,7 +8,7 @@ using NAudio.Wave;
 namespace LagDaemon.AudioProcessing.Audio.Components;
 public class AudioFileSourceComponent : IAudioSource
 {
-    public string AudioFilepath
+    public string AudioFilePath
     {
         get;
     }
@@ -19,32 +19,28 @@ public class AudioFileSourceComponent : IAudioSource
 
     public event EventHandler OnStop;
 
-    event EventHandler<AudioDataAvailableEventArgs> IAudioSource.OnDataAvailable
-    {
-        add
-        {
-            throw new NotImplementedException();
-        }
-
-        remove
-        {
-            throw new NotImplementedException();
-        }
-    }
+    public event EventHandler<AudioDataAvailableEventArgs> OnDataAvailable;
+  
 
     public AudioFileSourceComponent(string audioFilepath, IAudioPipelineComponent pipeline)
     {
-        AudioFilepath = audioFilepath;
+        AudioFilePath = audioFilepath;
         Pipeline = pipeline;
     }
+
+    private bool _running = true;
 
     public async Task StartAsync() 
     {
         await Task.Run(() => {
-            using WaveFileReader waveFileReader = new WaveFileReader(AudioFilepath);
-            var buffer = new byte[32768];
-            waveFileReader.Read(buffer);
-            Pipeline.ProcessAudio(buffer);
+            using WaveFileReader waveFileReader = new WaveFileReader(AudioFilePath);
+            int blockAlign = waveFileReader.WaveFormat.BlockAlign;
+            byte[] buffer = new byte[blockAlign * 1024];
+            while (_running && waveFileReader.CanRead)
+            {
+                waveFileReader.Read(buffer, 0, buffer.Length);
+                Pipeline.ProcessAudio(buffer);
+            }
         });
     }
 
@@ -56,6 +52,7 @@ public class AudioFileSourceComponent : IAudioSource
 
     public void Stop()
     {
-
+        _running = false;
+        OnStop?.Invoke(this, EventArgs.Empty);
     }
 }
