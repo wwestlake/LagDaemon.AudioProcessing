@@ -23,6 +23,7 @@ namespace LagDaemon.AudioProcessing.Api
             container.Register(Component.For<ISerializationService, SerializationService>());
             container.Register(Component.For<ISystemConfigurationService, SystemConfigurationService>());
             container.Register(Component.For<IProjectManagementService, ProjectManagementService>());
+            container.Register(Component.For<ILoggerService, SerilogLoggerService>());
         }
     }
 }

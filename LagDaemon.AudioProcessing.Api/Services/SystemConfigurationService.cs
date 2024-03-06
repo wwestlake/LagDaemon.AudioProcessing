@@ -2,12 +2,6 @@
 using LagDaemon.AudioProcessing.Api.DataManagement.Models;
 using LagDaemon.AudioProcessing.Api.DataManagement.Services;
 using LagDaemon.AudioProcessing.Api.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LagDaemon.AudioProcessing.Api.Services
 {
@@ -25,6 +19,7 @@ namespace LagDaemon.AudioProcessing.Api.Services
         void SetDefaults()
         {
             _appConfig.UserPreferences.Add("test", 1);
+            _appConfig.UserPreferences.Add("log.fileath", "system.log");
         }
 
         public void Save()

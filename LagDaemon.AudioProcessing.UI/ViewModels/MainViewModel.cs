@@ -39,8 +39,10 @@ namespace LagDaemon.AudioProcessing.UI.ViewModels
             set { _isSaveEnabled = value; OnPropertyChanged(); }
         }
 
-        public MainViewModel(StartPageViewModel vm) 
+        public MainViewModel(StartPageViewModel vm, ILoggerService loggerService) 
         {
+            _loggerService = loggerService;
+            _loggerService.LogInformation("Starting MainWindow");
             CurrentViewModel = vm;
             NewCommand = new RelayCommand(NewExecute);
             OpenCommand = new RelayCommand(OpenExecute);
@@ -48,6 +50,8 @@ namespace LagDaemon.AudioProcessing.UI.ViewModels
         }
 
         private ViewModelBase _currentViewModel;
+        private ILoggerService _loggerService;
+
         public ViewModelBase CurrentViewModel 
         { 
             get { return _currentViewModel; }
