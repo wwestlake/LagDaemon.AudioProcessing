@@ -1,6 +1,4 @@
 ﻿using Serilog;
-using Serilog.Events;
-using System;
 
 public class SerilogLoggerService : ILoggerService
 {
