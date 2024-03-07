@@ -1,13 +1,4 @@
-﻿using System;
-using Castle.MicroKernel.Registration;
-using Castle.Windsor;
-using LagDaemon.AudioProcessing.Api.DataManagement.FileManagement;
-using LagDaemon.AudioProcessing.Api.DataManagement.Implementations;
-using LagDaemon.AudioProcessing.Api.DataManagement.Models;
-using LagDaemon.AudioProcessing.Api.DataManagement.Services;
-using LagDaemon.AudioProcessing.Api.Interfaces;
-using LagDaemon.AudioProcessing.Api.Services;
-using LagDaemon.AudioProcessing.Audio.Components;
+﻿using LagDaemon.AudioProcessing.Audio.Components;
 using NAudio.Wave;
 
 namespace LagDaemon.AudioProcessing.TestConsole

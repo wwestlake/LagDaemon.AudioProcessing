@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace LagDaemon.AudioProcessing.Api.DataManagement.Services
+namespace LagDaemon.AudioProcessing.Api.Services.Serialization
 {
     public interface ISerializationService
     {

@@ -6,14 +6,14 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LagDaemon.AudioProcessing.Api.DataManagement.Services
+namespace LagDaemon.AudioProcessing.Api.Services.Serialization
 {
     public class SerializationService : ISerializationService
     {
         readonly ISerializer _serializer;
         public SerializationService(ISerializer serializer)
         {
-            this._serializer = serializer;
+            _serializer = serializer;
         }
 
         public T Deserialize<T>(string item) where T : class
@@ -23,7 +23,7 @@ namespace LagDaemon.AudioProcessing.Api.DataManagement.Services
 
         public string Serialize<T>(T item) where T : class
         {
-            return _serializer.Serialize<T>(item);
+            return _serializer.Serialize(item);
         }
 
 

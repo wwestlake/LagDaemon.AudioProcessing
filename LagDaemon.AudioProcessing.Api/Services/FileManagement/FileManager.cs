@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LagDaemon.AudioProcessing.Api.DataManagement.FileManagement
+namespace LagDaemon.AudioProcessing.Api.Services.FileManagement
 {
     public class FileManager : IDisposable
     {
@@ -20,12 +20,12 @@ namespace LagDaemon.AudioProcessing.Api.DataManagement.FileManagement
             var pathOnly = Path.GetDirectoryName(filePath);
 
 
-            if (! Path.Exists(pathOnly))
+            if (!Path.Exists(pathOnly))
             {
                 Directory.CreateDirectory(pathOnly);
             }
 
-            if (! File.Exists(filePath))
+            if (!File.Exists(filePath))
             {
                 var fs = File.Create(filePath);
                 fs.Close();

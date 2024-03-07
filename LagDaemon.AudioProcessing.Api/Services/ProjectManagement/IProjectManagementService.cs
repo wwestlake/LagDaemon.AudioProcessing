@@ -2,7 +2,7 @@
 using System;
 using System.Linq;
 
-namespace LagDaemon.AudioProcessing.Api.Services
+namespace LagDaemon.AudioProcessing.Api.Services.ProjectManagement
 {
     public interface IProjectManagementService
     {

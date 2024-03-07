@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LagDaemon.AudioProcessing.Api.DataManagement.Services
+namespace LagDaemon.AudioProcessing.Api.Services
 {
     public static class SystemPaths
     {

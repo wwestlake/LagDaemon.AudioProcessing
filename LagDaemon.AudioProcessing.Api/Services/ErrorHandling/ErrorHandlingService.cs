@@ -1,4 +1,4 @@
-﻿namespace LagDaemon.AudioProcessing.Api.Services
+﻿namespace LagDaemon.AudioProcessing.Api.Services.ErrorHandling
 {
     public class ErrorHandlingService : IErrorHandlingService
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace LagDaemon.AudioProcessing.Api.Services
+namespace LagDaemon.AudioProcessing.Api.Services.ErrorHandling
 {
     public interface IErrorHandlingService
     {
