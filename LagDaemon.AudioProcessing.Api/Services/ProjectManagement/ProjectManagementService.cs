@@ -1,4 +1,4 @@
-﻿using LagDaemon.AudioProcessing.Api.DataManagement.Models;
+﻿using LagDaemon.AudioProcessing.Api.Model;
 using LagDaemon.AudioProcessing.Api.Services.ErrorHandling;
 using LagDaemon.AudioProcessing.Api.Services.FileManagement;
 using LagDaemon.AudioProcessing.Api.Services.Serialization;
@@ -10,12 +10,14 @@ namespace LagDaemon.AudioProcessing.Api.Services.ProjectManagement
         private readonly ISerializationService _serializer;
         private readonly IErrorHandlingService _errorHandler;
         private readonly ISystemConfigurationService _systemConfigService;
+        private readonly IFileManagementService _fileManagementService;
 
-        public ProjectManagementService(ISerializationService serializer, IErrorHandlingService errorHandler, ISystemConfigurationService systemConfigService)
+        public ProjectManagementService(ISerializationService serializer, IErrorHandlingService errorHandler, ISystemConfigurationService systemConfigService, IFileManagementService fileManagementService)
         {
             _serializer = serializer;
             _errorHandler = errorHandler;
             _systemConfigService = systemConfigService;
+            _fileManagementService = fileManagementService;
         }
 
         public IEnumerable<Project> GetRecentProjects()

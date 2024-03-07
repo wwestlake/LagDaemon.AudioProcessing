@@ -1,29 +1,41 @@
-﻿using System.IO.Compression;
+﻿using System.IO;
+using System.IO.Compression;
 
 namespace LagDaemon.AudioProcessing.Api.Services.FileManagement;
 
-public interface IZipArchive : IDisposable
-{
-    ZipArchiveEntry CreateEntry(string entryName);
-    ZipArchiveEntry GetEntry(string entryName);
-}
-
 public class ZipArchiveWrapper : IZipArchive
 {
-    private readonly ZipArchive _archive;
+    private ZipArchive? _archive = null;
 
-    public ZipArchiveWrapper(ZipArchive archive)
+    public ZipArchiveWrapper()
     {
-        _archive = archive ?? throw new ArgumentNullException(nameof(archive));
+    }
+
+    public void Open(string path)
+    {
+        _archive = new ZipArchive(File.OpenRead(path));
+    }
+
+    public void Open(Stream stream)
+    {
+        _archive = new ZipArchive(stream);
     }
 
     public ZipArchiveEntry CreateEntry(string entryName)
     {
+        if (_archive == null) 
+        { 
+            throw new ApplicationException("Must open an archive file first."); 
+        }
         return _archive.CreateEntry(entryName);
     }
 
-    public ZipArchiveEntry GetEntry(string entryName)
+    public ZipArchiveEntry? GetEntry(string entryName)
     {
+        if (_archive == null) 
+        { 
+            throw new ApplicationException("Must open an archive file first."); 
+        }
         return _archive.GetEntry(entryName);
     }
 

@@ -1,4 +1,4 @@
-﻿using LagDaemon.AudioProcessing.Api.DataManagement.Models;
+﻿using LagDaemon.AudioProcessing.Api.Model;
 using System;
 using System.Linq;
 

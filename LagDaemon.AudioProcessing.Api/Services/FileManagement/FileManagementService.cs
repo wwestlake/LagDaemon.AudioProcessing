@@ -11,6 +11,16 @@ public class FileManagementService : IFileManagementService
         _archive = archive;
     }
 
+    public void Open(string path)
+    {
+        _archive.Open(path);
+    }
+
+    public void Open(Stream stream)
+    {
+        _archive.Open(stream);
+    }
+
     public void WriteEntry(string entryName, byte[] fileContents)
     {
         // Create a new entry in the zip archive with the specified entry name

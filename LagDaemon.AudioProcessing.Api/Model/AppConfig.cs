@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LagDaemon.AudioProcessing.Api.DataManagement.Models
+namespace LagDaemon.AudioProcessing.Api.Model
 {
     public class AppConfig
     {

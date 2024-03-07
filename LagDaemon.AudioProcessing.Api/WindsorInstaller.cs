@@ -1,4 +1,6 @@
-﻿using Castle.MicroKernel.Registration;
+﻿using System.IO.Compression;
+using Castle.Facilities.TypedFactory;
+using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using LagDaemon.AudioProcessing.Api.DataManagement.Implementations;
@@ -8,11 +10,6 @@ using LagDaemon.AudioProcessing.Api.Services.ErrorHandling;
 using LagDaemon.AudioProcessing.Api.Services.FileManagement;
 using LagDaemon.AudioProcessing.Api.Services.ProjectManagement;
 using LagDaemon.AudioProcessing.Api.Services.Serialization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LagDaemon.AudioProcessing.Api
 {
@@ -28,6 +25,7 @@ namespace LagDaemon.AudioProcessing.Api
             container.Register(Component.For<IProjectManagementService, ProjectManagementService>());
             container.Register(Component.For<ILoggerService, SerilogLoggerService>());
             container.Register(Component.For<IFileManagementService, FileManagementService>());
+            container.Register(Component.For<IZipArchive, ZipArchiveWrapper>());
         }
     }
 }

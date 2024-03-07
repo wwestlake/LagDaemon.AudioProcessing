@@ -4,19 +4,37 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LagDaemon.AudioProcessing.Api.DataManagement.Models
+namespace LagDaemon.AudioProcessing.Api.Model
 {
     public class Project
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public string Version { get; set; }
+        public string Name
+        {
+            get; set;
+        }
+        public string Description
+        {
+            get; set;
+        }
+        public string Version
+        {
+            get; set;
+        }
 
-        public string Author { get; set; }
+        public string Author
+        {
+            get; set;
+        }
 
-        public string Copyright { get; set; }
+        public string Copyright
+        {
+            get; set;
+        }
 
-        public string Path { get; set; }
+        public string Path
+        {
+            get; set;
+        }
         public IList<FileDescription> Files { get; set; } = new List<FileDescription>();
         public IList<Project> SubProjects { get; set; } = new List<Project>();
 
@@ -36,7 +54,8 @@ namespace LagDaemon.AudioProcessing.Api.DataManagement.Models
             if (!ProjectSettings.ContainsKey(setting))
             {
                 ProjectSettings.Add(setting, value);
-            } else
+            }
+            else
             {
                 ProjectSettings[setting] = value;
             }
