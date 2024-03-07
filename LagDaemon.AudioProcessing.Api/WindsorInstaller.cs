@@ -5,6 +5,7 @@ using LagDaemon.AudioProcessing.Api.DataManagement.Implementations;
 using LagDaemon.AudioProcessing.Api.DataManagement.Services;
 using LagDaemon.AudioProcessing.Api.Interfaces;
 using LagDaemon.AudioProcessing.Api.Services;
+using LagDaemon.AudioProcessing.Api.Services.FileManagement;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,7 @@ namespace LagDaemon.AudioProcessing.Api
             container.Register(Component.For<ISystemConfigurationService, SystemConfigurationService>());
             container.Register(Component.For<IProjectManagementService, ProjectManagementService>());
             container.Register(Component.For<ILoggerService, SerilogLoggerService>());
+            container.Register(Component.For<IFileManagementService, FileManagementService>());
         }
     }
 }

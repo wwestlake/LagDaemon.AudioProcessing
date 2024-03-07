@@ -2,13 +2,13 @@
 using System.Text;
 
 namespace LagDaemon.AudioProcessing.Api.Services.FileManagement;
-public class FileManagementService
+public class FileManagementService : IFileManagementService
 {
     private readonly IZipArchive _archive;
 
     public FileManagementService(IZipArchive archive)
     {
-        _archive = _archive;
+        _archive = archive;
     }
 
     public void WriteEntry(string entryName, byte[] fileContents)
@@ -17,10 +17,8 @@ public class FileManagementService
         ZipArchiveEntry entry = _archive.CreateEntry(entryName);
 
         // Write the file content to the zip entry
-        using (Stream entryStream = entry.Open())
-        {
-            entryStream.Write(fileContents, 0, fileContents.Length);
-        }
+        using Stream entryStream = entry.Open();
+        entryStream.Write(fileContents, 0, fileContents.Length);
     }
 
     public void WriteEntry(string entryName, string fileContents)
@@ -37,13 +35,11 @@ public class FileManagementService
         if (entry != null)
         {
             // Read the content of the entry
-            using (Stream entryStream = entry.Open())
-            using (MemoryStream memoryStream = new MemoryStream())
-            {
-                entryStream.CopyTo(memoryStream);
-                entryInfo.BinaryContent = memoryStream.ToArray();
-                entryInfo.FileSize = entry.Length;
-            }
+            using Stream entryStream = entry.Open();
+            using MemoryStream memoryStream = new MemoryStream();
+            entryStream.CopyTo(memoryStream);
+            entryInfo.BinaryContent = memoryStream.ToArray();
+            entryInfo.FileSize = entry.Length;
         }
 
         return entryInfo;
@@ -58,12 +54,10 @@ public class FileManagementService
         if (entry != null)
         {
             // Read the content of the entry
-            using (Stream entryStream = entry.Open())
-            using (StreamReader reader = new StreamReader(entryStream))
-            {
-                entryInfo.TextContent = reader.ReadToEnd();
-                entryInfo.FileSize = entry.Length;
-            }
+            using Stream entryStream = entry.Open();
+            using StreamReader reader = new StreamReader(entryStream);
+            entryInfo.TextContent = reader.ReadToEnd();
+            entryInfo.FileSize = entry.Length;
         }
 
         return entryInfo;
