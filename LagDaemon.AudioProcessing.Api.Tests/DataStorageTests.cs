@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using LagDaemon.AudioProcessing.Api.Services.System;
 
 namespace LagDaemon.AudioProcessing.Api.Tests
 {

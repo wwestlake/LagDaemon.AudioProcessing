@@ -3,7 +3,7 @@ using LagDaemon.AudioProcessing.Api.Models;
 using LagDaemon.AudioProcessing.Audio.Devices;
 using NAudio.Wave;
 
-namespace LagDaemon.AudioProcessing.Api.Services
+namespace LagDaemon.AudioProcessing.Api.Services.SystemServices
 {
     public class MetadataService : IMetadataService
     {
@@ -24,7 +24,7 @@ namespace LagDaemon.AudioProcessing.Api.Services
         public IEnumerable<AudioDeviceModel> GetWaveOutCapabilities()
         {
             var devices = DeviceCapabilities.GetOutputDevicesCapabilities();
-            foreach (var device in devices) 
+            foreach (var device in devices)
             {
                 yield return new AudioDeviceModel
                 {

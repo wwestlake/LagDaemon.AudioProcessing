@@ -2,7 +2,7 @@
 using LagDaemon.AudioProcessing.Api.Model;
 using LagDaemon.AudioProcessing.Api.Services.FileManagement;
 
-namespace LagDaemon.AudioProcessing.Api.Services
+namespace LagDaemon.AudioProcessing.Api.Services.SystemServices
 {
     public class SystemConfigurationService : ISystemConfigurationService
     {
