@@ -20,4 +20,8 @@ public static class ProjectLayout
         Metadata, Indices, Users, Data
     };
 
+    public static string DataPath(string path)
+    {
+        return $"{Data}{sep}{path}";
+    }
 }

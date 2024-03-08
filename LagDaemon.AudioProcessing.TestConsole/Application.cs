@@ -24,8 +24,15 @@ public class Application : IApplication
     public void Run()
     {
         _logger.LogInformation("Starting Application");
+        var archivePath = "D:\\Sound\\TestData\\MyProject.zip";
+        var archive = new ArchiveHandler(archivePath);
+        if (! File.Exists(archivePath))
+        {
+            archive.CreateArchive(ProjectLayout.Folders);
+        }
+        //archive.ImportFile(@"D:\Sound\TestData\AMaj7.mp3", ProjectLayout.DataPath("AMaj7.mp3"));
 
-        var archive = new ArchiveHandler("D:\\Sound\\TestData\\MyProject.zip");
-        archive.CreateArchive(ProjectLayout.Folders);
+        archive.ExportFile(ProjectLayout.DataPath("AMaj7.mp3"), "D:\\Sound\\TestData\\Test\\AMaj7.mp3").Wait();
+
     }
 }

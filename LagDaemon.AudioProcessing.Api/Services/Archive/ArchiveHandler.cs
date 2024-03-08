@@ -38,11 +38,37 @@ public class ArchiveHandler
             throw new ApplicationException($"Archive not found: {_path}");
         }
 
-        using var archiveStream = File.Open(_path, FileMode.Create);
-        using var archive = new ZipArchive(archiveStream);
+        using var archiveStream = File.Open(_path, FileMode.Open);
+        using var archive = new ZipArchive(archiveStream, ZipArchiveMode.Update);
         var item = archive.CreateEntry(path);
-        item.Open().Write(data, 0, data.Length);
+        using var stream = item.Open();
+        stream.Write(data, 0, data.Length);
+        
     }
 
+    public void ImportFile(string filename, string pathInProject)
+    {
+        using var archiveStream = File.Open(_path, FileMode.Open);
+        using var archive = new ZipArchive(archiveStream, ZipArchiveMode.Update);
+        archive.CreateEntryFromFile(filename, $"{pathInProject}");
+    }
 
+    public async Task ExportFile(string pathInProject, string pathInFileSystem)
+    {
+        using var archiveStream = File.Open(_path, FileMode.Open);
+        using var archive = new ZipArchive(archiveStream, ZipArchiveMode.Read);
+        var entry = archive.GetEntry(pathInProject);
+        if (entry != null)
+        {
+            using (var entryStream = entry.Open())
+            using (var fileStream = File.OpenWrite(pathInFileSystem))
+            {
+                await entryStream.CopyToAsync(fileStream);
+            }
+        }
+        else
+        {
+            throw new FileNotFoundException($"Entry '{pathInProject}' not found in the zip archive.");
+        }
+    }
 }
