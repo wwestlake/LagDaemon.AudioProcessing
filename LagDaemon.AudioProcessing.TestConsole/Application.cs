@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using LagDaemon.AudioProcessing.Api.Services.Archive;
 using LagDaemon.AudioProcessing.Api.Services.FileManagement;
 using LagDaemon.AudioProcessing.Api.Services.ProjectManagement;
+using LagDaemon.AudioProcessing.Audio.Components;
+using NAudio.Wave;
 
 namespace LagDaemon.AudioProcessing.TestConsole;
 public class Application : IApplication
@@ -24,15 +26,31 @@ public class Application : IApplication
     public void Run()
     {
         _logger.LogInformation("Starting Application");
-        var archivePath = "D:\\Sound\\TestData\\MyProject.zip";
-        var archive = new ArchiveHandler(archivePath);
-        if (! File.Exists(archivePath))
-        {
-            archive.CreateArchive(ProjectLayout.Folders);
-        }
-        //archive.ImportFile(@"D:\Sound\TestData\AMaj7.mp3", ProjectLayout.DataPath("AMaj7.mp3"));
 
-        archive.ExportFile(ProjectLayout.DataPath("AMaj7.mp3"), "D:\\Sound\\TestData\\Test\\AMaj7.mp3").Wait();
+        MemoryStream sink = new MemoryStream();
+
+        AudioRecorder recorder = new AudioRecorder(sink);
+
+        recorder.StartRecording();
+
+        Thread.Sleep(10000);
+
+        recorder.StopRecording();
+
+        WaveOutEvent waveOut = new WaveOutEvent();
+
+        sink.Seek(0, SeekOrigin.Begin);
+        using (WaveFileReader waveFileReader = new WaveFileReader(sink))
+        {
+            waveOut.Init(waveFileReader);
+            waveOut.Play();
+
+            waveOut.PlaybackStopped += (sender, e) =>
+            {
+                // Dispose of the WaveOutEvent instance after playback is complete
+                waveOut.Dispose();
+            };
+        }
 
     }
 }
