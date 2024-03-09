@@ -27,22 +27,32 @@ public class Application : IApplication
     {
         _logger.LogInformation("Starting Application");
 
-        MemoryStream sink = new MemoryStream();
+        int BufferSizeMilliseconds = 1000; // 1 second
+
+        var waveFormat = new WaveFormat(44100, 16, 1);
+        int bufferSizeBytes = waveFormat.AverageBytesPerSecond * BufferSizeMilliseconds / 1000;
+
+        BufferedWaveProvider sink = new BufferedWaveProvider(waveFormat)
+        {
+            BufferDuration = TimeSpan.FromMilliseconds(BufferSizeMilliseconds),
+            DiscardOnBufferOverflow = true // Discard data if buffer overflows
+        };
 
         AudioRecorder recorder = new AudioRecorder(sink);
 
+        _logger.LogInformation($"Recording {bufferSizeBytes}");
         recorder.StartRecording();
 
         Thread.Sleep(10000);
 
         recorder.StopRecording();
 
-        WaveOutEvent waveOut = new WaveOutEvent();
+        
 
-        sink.Seek(0, SeekOrigin.Begin);
-        using (WaveFileReader waveFileReader = new WaveFileReader(sink))
+        using (var waveOut = new WaveOut())
         {
-            waveOut.Init(waveFileReader);
+            _logger.LogInformation($"Playing {bufferSizeBytes}");
+            waveOut.Init(sink);
             waveOut.Play();
 
             waveOut.PlaybackStopped += (sender, e) =>
@@ -50,7 +60,9 @@ public class Application : IApplication
                 // Dispose of the WaveOutEvent instance after playback is complete
                 waveOut.Dispose();
             };
+
         }
+        _logger.LogInformation($"Done {bufferSizeBytes}");
 
     }
 }
