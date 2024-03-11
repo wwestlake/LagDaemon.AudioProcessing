@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Azure.AI.OpenAI;
 using LagDaemon.AudioProcessing.Api.Services.Archive;
 using LagDaemon.AudioProcessing.Api.Services.FileManagement;
 using LagDaemon.AudioProcessing.Api.Services.ProjectManagement;
@@ -23,46 +24,27 @@ public class Application : IApplication
         _projectManager = projectManager;
     }
 
-    public void Run()
+    public async Task Run()
     {
         _logger.LogInformation("Starting Application");
 
-        int BufferSizeMilliseconds = 1000; // 1 second
+        OpenAIClient client = new OpenAIClient("");
 
-        var waveFormat = new WaveFormat(44100, 16, 1);
-        int bufferSizeBytes = waveFormat.AverageBytesPerSecond * BufferSizeMilliseconds / 1000;
+        var message = new List<ChatRequestMessage>( );
 
-        BufferedWaveProvider sink = new BufferedWaveProvider(waveFormat)
+        var options = new ChatCompletionsOptions("gpt-3.5-turbo",  );
+
+        var chatMessage = new ChatMessage()
+
+        var openAiResponse = 
+            await client.GetChatCompletionsAsync();
+
+        foreach (var choice in openAiResponse.Value.Choices)
         {
-            BufferDuration = TimeSpan.FromMilliseconds(BufferSizeMilliseconds),
-            DiscardOnBufferOverflow = true // Discard data if buffer overflows
-        };
-
-        AudioRecorder recorder = new AudioRecorder(sink);
-
-        _logger.LogInformation($"Recording {bufferSizeBytes}");
-        recorder.StartRecording();
-
-        Thread.Sleep(10000);
-
-        recorder.StopRecording();
-
-        
-
-        using (var waveOut = new WaveOut())
-        {
-            _logger.LogInformation($"Playing {bufferSizeBytes}");
-            waveOut.Init(sink);
-            waveOut.Play();
-
-            waveOut.PlaybackStopped += (sender, e) =>
-            {
-                // Dispose of the WaveOutEvent instance after playback is complete
-                waveOut.Dispose();
-            };
-
+            Console.WriteLine(choice.Text);
         }
-        _logger.LogInformation($"Done {bufferSizeBytes}");
+
+        _logger.LogInformation($"Done");
 
     }
 }

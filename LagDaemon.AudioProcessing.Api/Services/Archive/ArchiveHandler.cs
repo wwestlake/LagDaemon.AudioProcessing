@@ -25,6 +25,44 @@ public class ArchiveHandler
         }
     }
 
+    public enum EntryType
+    {
+        Files,
+        Folders
+    }
+
+    public IEnumerable<string> ListEntries(string directoryPath = null, EntryType entryType = EntryType.Files)
+    {
+        using var archiveStream = new FileStream(_path, FileMode.Open);
+        using var archive = new ZipArchive(archiveStream, ZipArchiveMode.Update);
+
+        var filteredEntries = archive.Entries;
+
+        if (!string.IsNullOrEmpty(directoryPath))
+        {
+            filteredEntries = (System.Collections.ObjectModel.ReadOnlyCollection<ZipArchiveEntry>)filteredEntries.Where(entry =>
+            {
+                string normalizedPath = entry.FullName.Replace('\\', '/');
+                return normalizedPath.StartsWith(directoryPath + "/", StringComparison.OrdinalIgnoreCase);
+            });
+        }
+
+        IEnumerable<string> entries = filteredEntries
+            .Select(entry =>
+            {
+                string normalizedPath = entry.FullName.Replace('\\', '/');
+                string relativePath = normalizedPath;
+                if (!string.IsNullOrEmpty(directoryPath))
+                {
+                    relativePath = normalizedPath.Substring(directoryPath.Length).Trim('/');
+                }
+                return new { IsFolder = relativePath.EndsWith('/'), Path = relativePath };
+            })
+            .Where(entry => entryType == EntryType.Files ? !entry.IsFolder : entry.IsFolder)
+            .Select(entry => entry.Path);
+
+        return entries;
+    }
     public void CreateItem(string path, byte[] data)
     {
         if (! File.Exists(this._path))
