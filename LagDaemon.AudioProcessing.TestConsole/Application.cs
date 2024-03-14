@@ -8,18 +8,22 @@ using LagDaemon.AudioProcessing.Api.Services.Archive;
 using LagDaemon.AudioProcessing.Api.Services.FileManagement;
 using LagDaemon.AudioProcessing.Api.Services.ProjectManagement;
 using LagDaemon.AudioProcessing.Audio.Components;
+using Microsoft.Extensions.Configuration;
 using NAudio.Wave;
 
 namespace LagDaemon.AudioProcessing.TestConsole;
 public class Application : IApplication
 {
+    private readonly IConfiguration _configuration;
     private readonly ILoggerService _logger;
     private readonly IProjectManagementService _projectManager;
 
     public Application(
+        IConfiguration configuration,
         ILoggerService logger, 
         IProjectManagementService projectManager)
     {
+        _configuration = configuration;
         _logger = logger;
         _projectManager = projectManager;
     }
@@ -28,16 +32,16 @@ public class Application : IApplication
     {
         _logger.LogInformation("Starting Application");
 
-        OpenAIClient client = new OpenAIClient("");
+        OpenAIClient client = new OpenAIClient(_configuration.GetSection("OpenAI")["ApiKey"]);
 
-        var message = new List<ChatRequestMessage>( );
+        var messages = new List<ChatRequestMessage>
+        {
+            new ChatRequestMessage { Content = "Hello!" }
+            // Add more messages as needed
+        };
 
-        var options = new ChatCompletionsOptions("gpt-3.5-turbo",  );
 
-        var chatMessage = new ChatMessage()
 
-        var openAiResponse = 
-            await client.GetChatCompletionsAsync();
 
         foreach (var choice in openAiResponse.Value.Choices)
         {

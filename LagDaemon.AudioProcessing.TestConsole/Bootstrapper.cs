@@ -1,5 +1,6 @@
 ﻿using Castle.MicroKernel.Registration;
 using Castle.Windsor;
+using Microsoft.Extensions.Configuration;
 using System.Reflection;
 
 namespace LagDaemon.AudioProcessing.TestConsole;
@@ -12,6 +13,12 @@ public class Bootstrapper
     {
         if (Container != null) return;
         Container = new WindsorContainer();
+
+        IConfiguration configuration = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            .Build();
+
+        Container.Register(Component.For<IConfiguration>().Instance(configuration));
 
         InstallAssemblies();
     }
